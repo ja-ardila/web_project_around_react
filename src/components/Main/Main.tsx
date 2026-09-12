@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import type { CardData, PopupConfig } from '../../types/types';
 import Card from './Card/Card';
+import DeleteConfirmation from './Popup/DeleteConfirmation/DeleteConfirmation';
 import EditAvatar from './Popup/EditAvatar/EditAvatar';
 import EditProfile from './Popup/EditProfile/EditProfile';
 import ImagePopup from './Popup/ImagePopup/ImagePopup';
@@ -11,6 +12,7 @@ import Popup from './Popup/Popup';
 
 interface MainProps {
   cards: CardData[];
+  isInitialLoading: boolean;
   popup: PopupConfig | null;
   handleOpenPopup: (popup: PopupConfig) => void;
   handleClosePopup: () => void;
@@ -20,6 +22,7 @@ interface MainProps {
 
 function Main({
   cards,
+  isInitialLoading,
   popup,
   handleOpenPopup,
   handleClosePopup,
@@ -41,6 +44,7 @@ function Main({
   const editAvatarPopup: PopupConfig = {
     title: 'Cambiar foto de perfil',
     children: <EditAvatar />,
+    contentClassName: 'popup__content_type_avatar',
   };
 
   function handleCardClick(card: CardData): void {
@@ -52,6 +56,16 @@ function Main({
             link: card.link,
           }}
         />
+      ),
+    });
+  }
+
+  function handleDeleteClick(card: CardData): void {
+    handleOpenPopup({
+      title: '¿Estás seguro/a?',
+      contentClassName: 'popup__content_type_confirmation',
+      children: (
+        <DeleteConfirmation onConfirm={() => handleCardDelete(card)} />
       ),
     });
   }
@@ -88,23 +102,33 @@ function Main({
           onClick={() => handleOpenPopup(newCardPopup)}
         ></button>
       </section>
-      <section className="cards page__section">
-        <ul className="cards__list">
-          {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={handleCardClick}
-              handleCardLike={handleCardLike}
-              handleCardDelete={handleCardDelete}
-            />
-          ))}
-        </ul>
+      <section
+        className="cards page__section"
+        aria-busy={isInitialLoading}
+      >
+        {isInitialLoading ? (
+          <p className="cards__status" role="status">
+            Cargando lugares...
+          </p>
+        ) : (
+          <ul className="cards__list">
+            {cards.map((card) => (
+              <Card
+                key={card._id}
+                card={card}
+                onCardClick={handleCardClick}
+                handleCardLike={handleCardLike}
+                handleCardDelete={handleDeleteClick}
+              />
+            ))}
+          </ul>
+        )}
       </section>
       {popup && (
         <Popup
           onClose={handleClosePopup}
           title={popup.title}
+          contentClassName={popup.contentClassName}
           isOpen={popup !== null}
         >
           {popup.children}

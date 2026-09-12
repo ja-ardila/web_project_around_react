@@ -50,7 +50,9 @@
 }
 
 .popup__button_loading,
-.popup__button_loading:hover {
+.popup__button_loading:hover,
+.popup__button_loading:disabled,
+.popup__button_loading:disabled:hover {
   color: #fff;
   background: #000;
   border: none;

@@ -18,6 +18,7 @@ function App(): React.JSX.Element {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [cards, setCards] = useState<CardData[]>([]);
   const [popup, setPopup] = useState<PopupConfig | null>(null);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
     async function loadInitialData(): Promise<void> {
@@ -31,6 +32,8 @@ function App(): React.JSX.Element {
         setCards(initialCards);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsInitialLoading(false);
       }
     }
 
@@ -69,6 +72,7 @@ function App(): React.JSX.Element {
       setCards((currentCards) =>
         currentCards.filter((currentCard) => currentCard._id !== card._id),
       );
+      setPopup(null);
     } catch (error) {
       console.error(error);
     }
@@ -126,6 +130,7 @@ function App(): React.JSX.Element {
         <Header />
         <Main
           cards={cards}
+          isInitialLoading={isInitialLoading}
           handleOpenPopup={handleOpenPopup}
           handleClosePopup={handleClosePopup}
           handleCardLike={handleCardLike}

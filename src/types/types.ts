@@ -1,6 +1,7 @@
 export type PopupConfig = {
   title?: string;
   children: React.ReactNode;
+  contentClassName?: string;
 };
 
 export type ImagePopupConfig = {

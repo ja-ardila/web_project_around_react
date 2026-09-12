@@ -47,6 +47,12 @@
   cursor: pointer;
 }
 
+.card__like-button_loading,
+.card__like-button_loading:hover {
+  opacity: 0.5;
+  cursor: wait;
+}
+
 .card__delete-button {
   width: 18px;
   height: 18px;
