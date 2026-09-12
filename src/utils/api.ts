@@ -1,8 +1,8 @@
 import type {
   AvatarFormData,
+  CardFormData,
   CardData,
   EditProfileFormData,
-  NewCardFormData,
   UserData,
 } from '../types/types';
 
@@ -72,7 +72,7 @@ export class Api {
     });
   }
 
-  public async addCard(cardData: NewCardFormData): Promise<CardData> {
+  public async addCard(cardData: CardFormData): Promise<CardData> {
     return await this.request<CardData>('/cards/', {
       method: 'POST',
       body: JSON.stringify(cardData),

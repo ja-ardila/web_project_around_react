@@ -7,6 +7,7 @@ import CurrentUserContext from './contexts/CurrentUserContext';
 import type {
   AvatarFormData,
   CardData,
+  CardFormData,
   EditProfileFormData,
   PopupConfig,
   UserData,
@@ -99,9 +100,27 @@ function App(): React.JSX.Element {
     }
   }
 
+  async function handleAddPlaceSubmit(
+    cardData: CardFormData,
+  ): Promise<void> {
+    try {
+      const newCard = await api.addCard(cardData);
+
+      setCards((currentCards) => [newCard, ...currentCards]);
+      setPopup(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+        handleAddPlaceSubmit,
+      }}
     >
       <div className="page__content">
         <Header />

@@ -19,6 +19,7 @@ export interface CurrentUserContextType {
   currentUser: UserData | null;
   handleUpdateUser: (userData: EditProfileFormData) => Promise<void>;
   handleUpdateAvatar: (avatarData: AvatarFormData) => Promise<void>;
+  handleAddPlaceSubmit: (cardData: CardFormData) => Promise<void>;
 }
 
 export interface CardData {
@@ -39,7 +40,9 @@ export interface AvatarFormData {
   avatar: string;
 }
 
-export interface NewCardFormData {
+export interface CardFormData {
   name: string;
   link: string;
 }
+
+export type NewCardFormData = CardFormData;
