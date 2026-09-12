@@ -18,6 +18,7 @@ export interface UserData {
 export interface CurrentUserContextType {
   currentUser: UserData | null;
   handleUpdateUser: (userData: EditProfileFormData) => Promise<void>;
+  handleUpdateAvatar: (avatarData: AvatarFormData) => Promise<void>;
 }
 
 export interface CardData {

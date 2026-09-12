@@ -62,6 +62,10 @@ export class Api {
   public async updateUserAvatar(
     avatarData: AvatarFormData,
   ): Promise<UserData> {
+    return this.updateAvatar(avatarData);
+  }
+
+  public async updateAvatar(avatarData: AvatarFormData): Promise<UserData> {
     return await this.request<UserData>('/users/me/avatar', {
       method: 'PATCH',
       body: JSON.stringify(avatarData),

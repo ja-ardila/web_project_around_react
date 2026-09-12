@@ -7,7 +7,7 @@ export default function EditProfile(): React.JSX.Element {
   const [name, setName] = useState(currentUser?.name || '');
   const [description, setDescription] = useState(currentUser?.about || '');
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>): void {
     event.preventDefault();
     void handleUpdateUser({ name, about: description });
   }

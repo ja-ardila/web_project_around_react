@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import CurrentUserContext from './contexts/CurrentUserContext';
 import type {
+  AvatarFormData,
   CardData,
   EditProfileFormData,
   PopupConfig,
@@ -85,8 +86,23 @@ function App(): React.JSX.Element {
     }
   }
 
+  async function handleUpdateAvatar(
+    avatarData: AvatarFormData,
+  ): Promise<void> {
+    try {
+      const updatedUser = await api.updateAvatar(avatarData);
+
+      setCurrentUser(updatedUser);
+      setPopup(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+    <CurrentUserContext.Provider
+      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+    >
       <div className="page__content">
         <Header />
         <Main
