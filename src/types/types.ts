@@ -8,6 +8,17 @@ export type ImagePopupConfig = {
   link?: string;
 };
 
+export interface UserData {
+  _id: string;
+  name: string;
+  about: string;
+  avatar: string;
+}
+
+export interface CurrentUserContextType {
+  currentUser: UserData | null;
+}
+
 export interface CardData {
   _id: string;
   name: string;
@@ -15,4 +26,18 @@ export interface CardData {
   owner: string;
   createdAt: string;
   isLiked: boolean;
-};
+}
+
+export interface EditProfileFormData {
+  name: string;
+  about: string;
+}
+
+export interface AvatarFormData {
+  avatar: string;
+}
+
+export interface NewCardFormData {
+  name: string;
+  link: string;
+}
