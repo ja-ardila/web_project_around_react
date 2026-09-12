@@ -4,7 +4,12 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import CurrentUserContext from './contexts/CurrentUserContext';
-import type { CardData, PopupConfig, UserData } from './types/types';
+import type {
+  CardData,
+  EditProfileFormData,
+  PopupConfig,
+  UserData,
+} from './types/types';
 import api from './utils/api';
 
 function App(): React.JSX.Element {
@@ -67,8 +72,21 @@ function App(): React.JSX.Element {
     }
   }
 
+  async function handleUpdateUser(
+    userData: EditProfileFormData,
+  ): Promise<void> {
+    try {
+      const updatedUser = await api.updateUserInfo(userData);
+
+      setCurrentUser(updatedUser);
+      setPopup(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <CurrentUserContext.Provider value={{ currentUser }}>
+    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
       <div className="page__content">
         <Header />
         <Main
