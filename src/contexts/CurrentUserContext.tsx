@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { CurrentUserContextType } from '../types/types';
+import type { CurrentUserContextType } from '../interfaces/CurrentUserContextType';
 
 const CurrentUserContext = createContext<CurrentUserContextType>(
   {} as CurrentUserContextType,

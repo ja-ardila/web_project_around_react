@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
-import type { CardData } from '../../../types/types.ts';
+import type { CardData } from '../../../interfaces/CardData';
 
 type CardProps = {
   card: CardData;

@@ -16,8 +16,19 @@ export default function Popup(props: PopupProps): React.JSX.Element {
     .filter(Boolean)
     .join(' ');
 
+  function handleOverlayClick(
+    event: React.MouseEvent<HTMLDivElement>,
+  ): void {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  }
+
   return (
-    <div className={`popup ${isOpen ? 'popup_is-opened' : ''}`}>
+    <div
+      className={`popup ${isOpen ? 'popup_is-opened' : ''}`}
+      onClick={handleOverlayClick}
+    >
       <div className={popupContentClassName}>
         <button
           aria-label="Cerrar ventana emergente"

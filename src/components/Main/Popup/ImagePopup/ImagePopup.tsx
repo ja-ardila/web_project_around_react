@@ -1,4 +1,4 @@
-import type { ImagePopupConfig } from '../../../../types/types.ts';
+import type { ImagePopupConfig } from '../../../../interfaces/ModalData';
 
 type ImageProps = {
   image: ImagePopupConfig;

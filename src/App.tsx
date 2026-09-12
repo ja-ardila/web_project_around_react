@@ -11,7 +11,7 @@ import type {
   EditProfileFormData,
   PopupConfig,
   UserData,
-} from './types/types';
+} from './interfaces';
 import api from './utils/api';
 
 function App(): React.JSX.Element {

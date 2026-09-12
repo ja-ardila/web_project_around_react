@@ -1,105 +1,83 @@
-# Tripleten web_project_around_react
-
-# Around the U.S. — React
+# Around the U.S. — React y TypeScript
 
 ## Descripción
 
-**Around the U.S.** es una aplicación web interactiva que presenta un perfil de usuario y una galería de lugares.
+Around the U.S. es una aplicación web interactiva que permite consultar y
+actualizar un perfil de usuario, además de administrar una galería de lugares.
+La interfaz original fue migrada a React con TypeScript y sus datos se
+sincronizan con la API de Around.
 
-En esta etapa, la interfaz visual del proyecto original desarrollado con JavaScript fue migrada a **React con TypeScript**. La aplicación se dividió en componentes reutilizables y se implementó la interacción de las ventanas emergentes mediante hooks de React.
+## Funcionalidades
 
-Este sprint se enfoca en la estructura visual y la migración a React. La conexión con la API y las operaciones para modificar los datos se implementarán en la siguiente etapa del proyecto.
-
-## Funcionalidades actuales
-
-- Visualización del perfil del usuario.
-- Renderizado de cards a partir de datos locales.
-- Apertura y cierre de ventanas emergentes.
-- Popup para editar la información del perfil.
-- Popup para cambiar la imagen del avatar.
-- Popup para agregar un nuevo lugar.
-- Vista ampliada de la imagen de una card.
-- Diseño adaptable para diferentes tamaños de pantalla.
-- Componentes reutilizables para cards y popups.
-
-Los formularios y botones cuentan actualmente con su presentación e interacción visual. Los cambios todavía no se guardan ni se envían a un servidor.
+- Carga del usuario y de las tarjetas desde la API.
+- Edición del nombre y la descripción del perfil.
+- Actualización del avatar mediante una URL.
+- Creación de nuevas tarjetas al principio de la galería.
+- Ampliación de las imágenes en una ventana emergente.
+- Activación y eliminación de Me gusta.
+- Eliminación de tarjetas propias con confirmación previa.
+- Validación de formularios y mensajes de error por campo.
+- Indicadores de carga durante las solicitudes.
+- Cierre de ventanas emergentes con el botón de cierre o al hacer clic en el
+  fondo.
+- Diseño adaptable para escritorio y dispositivos móviles.
 
 ## Tecnologías utilizadas
 
-- React
+- React 19
 - TypeScript
-- TSX
 - Vite
-- HTML5
-- CSS3
-- Metodología BEM
+- CSS y metodología BEM
+- Context API
+- Fetch API
 - ESLint
 
-## Aprendizajes
+## Estructura principal
 
-Durante el desarrollo de esta etapa se trabajó con:
-
-- Creación y organización de componentes de React.
-- Escritura de marcado mediante TSX.
-- Definición de tipos para componentes y propiedades.
-- Uso de props para comunicar componentes.
-- Renderizado de listas con `map`.
-- Uso de `key` para identificar componentes renderizados.
-- Manejo del estado con el hook `useState`.
-- Comunicación entre componentes mediante funciones callback.
-- Renderizado condicional de ventanas emergentes.
-- Configuración y ejecución de un proyecto con Vite.
+```text
+src/
+├── blocks/       # Estilos organizados por bloques BEM
+├── components/   # Componentes React
+├── contexts/     # Contexto global del usuario
+├── hooks/        # Hook reutilizable de validación
+├── images/       # Recursos gráficos
+├── interfaces/   # Tipos e interfaces de TypeScript
+├── utils/        # Instancia y métodos de la API
+├── App.tsx       # Estado global y controladores de la aplicación
+├── index.css     # Punto de entrada de los estilos
+└── main.tsx      # Punto de entrada de React
+```
 
 ## Instalación y ejecución
 
-Para ejecutar el proyecto localmente, primero instala las dependencias:
+Clona el repositorio e instala sus dependencias:
 
 ```bash
 npm install
 ```
 
-Después, inicia el servidor de desarrollo:
+Inicia el servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
-
-Vite abrirá la aplicación en el navegador. Si no se abre automáticamente, utiliza la dirección local que aparecerá en la terminal.
 
 ## Comandos disponibles
 
-Iniciar el entorno de desarrollo:
-
 ```bash
-npm run dev
+npm run dev      # Inicia Vite en modo desarrollo
+npm run build    # Comprueba TypeScript y crea la versión de producción
+npm run lint     # Analiza el código con ESLint
+npm run preview  # Previsualiza la compilación de producción
 ```
 
-Comprobar el código con ESLint:
+## Arquitectura
 
-```bash
-npm run lint
-```
+`App.tsx` concentra el estado del usuario, las tarjetas y la ventana emergente
+activa. También ejecuta las solicitudes a la API y actualiza el estado local con
+las respuestas del servidor.
 
-Crear la versión de producción:
-
-```bash
-npm run build
-```
-
-Previsualizar la versión de producción:
-
-```bash
-npm run preview
-```
-
-## Próxima etapa
-
-En el siguiente sprint se implementará la parte funcional de la aplicación mediante la conexión con una API. Esto permitirá:
-
-- Obtener la información del usuario desde el servidor.
-- Cargar las cards desde la API.
-- Editar la información del perfil.
-- Actualizar el avatar.
-- Crear y eliminar cards.
-- Dar y quitar “Me gusta”.
-- Guardar los cambios de forma persistente.
+`CurrentUserContext` comparte el usuario y los controladores de los formularios
+con los componentes que los necesitan. Los componentes `Main` y `Card` consumen
+este contexto para renderizar la información actual y determinar qué tarjetas
+pertenecen al usuario conectado.

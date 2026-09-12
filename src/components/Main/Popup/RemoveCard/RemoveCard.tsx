@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-interface DeleteConfirmationProps {
+interface RemoveCardProps {
   onConfirm: () => Promise<void>;
 }
 
-export default function DeleteConfirmation({
+export default function RemoveCard({
   onConfirm,
-}: DeleteConfirmationProps): React.JSX.Element {
+}: RemoveCardProps): React.JSX.Element {
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function handleSubmit(

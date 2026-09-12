@@ -4,14 +4,14 @@ import type {
   CardData,
   EditProfileFormData,
   UserData,
-} from '../types/types';
+} from '../interfaces';
 
 interface ApiOptions {
   baseUrl: string;
   headers: Record<string, string>;
 }
 
-export class Api {
+class Api {
   private baseUrl: string;
   private headers: Record<string, string>;
 

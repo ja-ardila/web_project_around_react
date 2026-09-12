@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import type { CardData, PopupConfig } from '../../types/types';
+import type { CardData, PopupConfig } from '../../interfaces';
 import Card from './Card/Card';
-import DeleteConfirmation from './Popup/DeleteConfirmation/DeleteConfirmation';
 import EditAvatar from './Popup/EditAvatar/EditAvatar';
 import EditProfile from './Popup/EditProfile/EditProfile';
 import ImagePopup from './Popup/ImagePopup/ImagePopup';
 import NewCard from './Popup/NewCard/NewCard';
 import Popup from './Popup/Popup';
+import RemoveCard from './Popup/RemoveCard/RemoveCard';
 
 interface MainProps {
   cards: CardData[];
@@ -65,7 +65,7 @@ function Main({
       title: '¿Estás seguro/a?',
       contentClassName: 'popup__content_type_confirmation',
       children: (
-        <DeleteConfirmation onConfirm={() => handleCardDelete(card)} />
+        <RemoveCard onConfirm={() => handleCardDelete(card)} />
       ),
     });
   }
