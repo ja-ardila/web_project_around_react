@@ -14,6 +14,8 @@ interface MainProps {
   popup: PopupConfig | null;
   handleOpenPopup: (popup: PopupConfig) => void;
   handleClosePopup: () => void;
+  handleCardLike: (card: CardData) => Promise<void>;
+  handleCardDelete: (card: CardData) => Promise<void>;
 }
 
 function Main({
@@ -21,6 +23,8 @@ function Main({
   popup,
   handleOpenPopup,
   handleClosePopup,
+  handleCardLike,
+  handleCardDelete,
 }: MainProps): React.JSX.Element {
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -87,7 +91,13 @@ function Main({
       <section className="cards page__section">
         <ul className="cards__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={handleCardClick}
+              handleCardLike={handleCardLike}
+              handleCardDelete={handleCardDelete}
+            />
           ))}
         </ul>
       </section>

@@ -38,6 +38,35 @@ function App(): React.JSX.Element {
     setPopup(null);
   }
 
+  async function handleCardLike(card: CardData): Promise<void> {
+    try {
+      const apiCall = card.isLiked
+        ? api.removeLike(card._id)
+        : api.addLike(card._id);
+      const updatedCard = await apiCall;
+
+      setCards((currentCards) =>
+        currentCards.map((currentCard) =>
+          currentCard._id === card._id ? updatedCard : currentCard,
+        ),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleCardDelete(card: CardData): Promise<void> {
+    try {
+      await api.deleteCard(card._id);
+
+      setCards((currentCards) =>
+        currentCards.filter((currentCard) => currentCard._id !== card._id),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={{ currentUser }}>
       <div className="page__content">
@@ -46,6 +75,8 @@ function App(): React.JSX.Element {
           cards={cards}
           handleOpenPopup={handleOpenPopup}
           handleClosePopup={handleClosePopup}
+          handleCardLike={handleCardLike}
+          handleCardDelete={handleCardDelete}
           popup={popup}
         />
         <Footer />

@@ -79,8 +79,18 @@ export class Api {
     cardId: string,
     isLiked: boolean,
   ): Promise<CardData> {
+    return isLiked ? this.removeLike(cardId) : this.addLike(cardId);
+  }
+
+  public async addLike(cardId: string): Promise<CardData> {
     return await this.request<CardData>(`/cards/${cardId}/likes`, {
-      method: isLiked ? 'DELETE' : 'PUT',
+      method: 'PUT',
+    });
+  }
+
+  public async removeLike(cardId: string): Promise<CardData> {
+    return await this.request<CardData>(`/cards/${cardId}/likes`, {
+      method: 'DELETE',
     });
   }
 
